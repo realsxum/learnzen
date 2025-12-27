@@ -30,11 +30,8 @@ def extract_text_from_pdf(pdf_file):
 def generate_plan_ai(syllabus_text, exam_date, daily_hours):
     # Expanded list of candidates to handle different environment/SDK versions
     model_candidates = [
-        'gemini-pro',
-        'gemini-1.5-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-pro',
-        'gemini-1.5-pro-latest'
+        'gemini-2.5-flash',
+        'gemini-2.0-flash'
     ]
     
     prompt = f"""
@@ -63,29 +60,107 @@ def generate_plan_ai(syllabus_text, exam_date, daily_hours):
 
 # 3. STREAMLIT UI
 st.set_page_config(page_title="LearnZen AI", page_icon="📚")
-st.title("📚 LearnZen: AI Study Planner")
+
+# Custom Title and Subtitle with Minimal Aligned Look
+st.markdown('<h1 class="main-heading">LEARNZEN</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-heading">AI Study Planner</p>', unsafe_allow_html=True)
 st.markdown("---")
 
 # CSS for UI Fine-tuning
 st.markdown("""
     <style>
+    /* Background Setup */
+    .stApp {
+        background: url("https://i.ibb.co/sdJ5qvPy/Gemini-Generated-Image-8p8dmm8p8dmm8p8d.png") no-repeat center center fixed;
+        background-size: cover;
+    }
+    .stApp::before {
+        content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(14, 17, 23, 0.4); z-index: -1;
+    }
+
+    /* Header Styling */
+    .main-heading {
+        color: #BF94FF !important;
+        font-size: 5rem !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+        margin-bottom: 0px !important;
+        letter-spacing: 5px !important;
+        -webkit-text-stroke: 2px #D1B3FF !important;
+        text-shadow: 0 0 25px rgba(191, 148, 255, 0.6) !important;
+    }
+    .sub-heading {
+        color: #FFFFFF !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important; /* Thicker as requested */
+        text-align: center !important;
+        margin-top: -15px !important;
+        letter-spacing: 5px !important;
+        text-transform: uppercase !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Glassmorphism for Windows/Containers */
+    .stForm, div[data-testid='stExpander'], .stMarkdownContainer, .stTextArea textarea, [data-testid="stFileUploader"] section {
+        background: rgba(255, 255, 255, 0.07) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+    }
+
+    /* Glassmorphism for Buttons */
+    button[kind="primary"], button[kind="secondary"], .stButton>button {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 10px !important;
+        color: #FFFFFF !important;
+        font-weight: bold !important;
+        transition: all 0.3s ease !important;
+    }
+    button:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 15px rgba(191, 148, 255, 0.4) !important;
+    }
+
+    /* Slider Customization */
+    div[data-baseweb="slider"] > div > div {
+        background: #00FFFF !important; /* Inactive track (right side) - Cyan */
+    }
+    div[data-baseweb="slider"] > div > div > div > div {
+        background: #D1B3FF !important; /* Active track (left side) - Light Violet */
+    }
+    div[role="slider"] {
+        background-color: #FFFFFF !important; /* Thumb - Pure White */
+        border: 2px solid #D1B3FF !important;
+        box-shadow: 0 0 10px rgba(191, 148, 255, 0.8) !important;
+    }
+    div[data-testid="stSliderThumbValue"] {
+        color: #00FFFF !important;
+        font-weight: bold !important;
+    }
+
     /* Vertical alignment for file uploader: Text on top, Button on bottom */
     [data-testid="stFileUploader"] section {
         display: flex !important;
-        flex-direction: column !important; /* Stack vertically */
+        flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         padding: 25px !important;
     }
     [data-testid="stFileUploader"] section > div {
         display: flex !important;
-        flex-direction: column !important; /* Stack vertically */
+        flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         gap: 15px !important;
         width: 100% !important;
     }
-    /* Final ordering and centering for text and buttons */
     [data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] {
         text-align: center !important;
         order: 1 !important;
@@ -94,7 +169,6 @@ st.markdown("""
         order: 2 !important;
         margin: 0 !important;
     }
-    /* Ensure the "Limit" text stays centered under the main text */
     [data-testid="stFileUploader"] small {
         display: block !important;
         text-align: center !important;
