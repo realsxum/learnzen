@@ -79,7 +79,7 @@ col1, col2 = st.columns([1, 1])
 with col1:
     exam_date = st.date_input("🗓️ When is your exam?", value=None, min_value=date.today())
 with col2:
-    daily_hours = st.slider("⏱️ Daily Study Hours", 1, 24, 4)
+    daily_hours = st.slider("⏱️ Daily Study Hours", 1, 20, 4)
 
 # CSS for UI Fine-tuning
 st.markdown("""
@@ -179,3 +179,4 @@ else:
                 db_conn.commit()
 
                 st.rerun()
+
