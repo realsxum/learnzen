@@ -6,7 +6,7 @@ from datetime import date
 
 # 1. SETUP & CONFIGURATION
 # Replace with your actual Gemini API Key from Google AI Studio
-API_KEY = "AIzaSyCzIqzq9KwdRFu0tkq4xjyla74pxT-Hg60"
+API_KEY = "YOUR_GEMINI_API_KEY"
 genai.configure(api_key=API_KEY)
 
 # Database Setup
@@ -177,4 +177,5 @@ else:
             if is_done:
                 db_cursor.execute("UPDATE tasks SET status = 'Pending' WHERE id = ?", (task_id,))
                 db_conn.commit()
+
                 st.rerun()
