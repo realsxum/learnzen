@@ -6,8 +6,9 @@ from datetime import date
 
 # 1. SETUP & CONFIGURATION
 # Replace with your actual Gemini API Key from Google AI Studio
-API_KEY = "YOUR_GEMINI_API_KEY"
-genai.configure(api_key=API_KEY)
+import os
+
+API_KEY = os.getenv("AIzaSyB7pKb-Fy2i4M9zsQRGEcNkm7vi6-EAI3I")
 
 # Database Setup
 db_conn = sqlite3.connect("learnzen.db", check_same_thread=False)
