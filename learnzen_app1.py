@@ -8,7 +8,7 @@ from datetime import date
 # Replace with your actual Gemini API Key from Google AI Studio
 import os
 
-API_KEY = os.getenv("AIzaSyB7pKb-Fy2i4M9zsQRGEcNkm7vi6-EAI3I")
+API_KEY = os.getenv("yourgeminiapikey")
 
 # Database Setup
 db_conn = sqlite3.connect("learnzen.db", check_same_thread=False)
@@ -266,3 +266,4 @@ else:
                 db_cursor.execute("UPDATE tasks SET status = 'Pending' WHERE id = ?", (task_id,))
                 db_conn.commit()
                 st.rerun()
+
